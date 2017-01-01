@@ -1,1 +1,2 @@
-# Shop-UI
+# addWindow
+Test plugin for adding window.
