@@ -1,6 +1,6 @@
 <?php
 
-namespace BE\inventory\event;
+namespace GenisysFTW\event;
 
 use pocketmine\event\Cancellable;
 use pocketmine\inventory\Inventory;
