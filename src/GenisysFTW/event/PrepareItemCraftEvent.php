@@ -18,22 +18,21 @@ class PrepareItemCraftEvent extends InventoryEvent implements Cancellable{
   private $what;
   
   public function __construct(CraftingInventory $what, InventoryEvent $view, (bool) $repair){
-    $this->what = $what;
-    $this->view = $view->getViewers();
-    $this->repair = $repair;
+    self::$what = $what;
+    self::$view = $view->getViewers();
+    self::$repair = $repair;
   }
   public function getRecipe(){
-    return $this->what->getRecipe();
+    return self::$what->getRecipe();
   }
   public function getInventory(){
-    return $this->what;
+    return self::$what;
   }
   
   /**
      * @return Player
    */
   public function getWho(){
-    return $this->view;
+    return self::$view;
   }
-  
 }
