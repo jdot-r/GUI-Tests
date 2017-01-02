@@ -115,16 +115,14 @@ class Main extends PluginBase implements Listener{
         }
     }
 	
-    public function onClick(\GenisysFTW\events\InventoryClickEvent $event){
+    public function onClick(\GenisysFTW\event\InventoryClickEvent $event){
         $player = $event->getWhoClicked();
         $inventory = $event->getInventory();
         if(!$inventory instanceof ChestInventory){
             return;
         }
-        if($event->getSlot() == 1 || $event->getItem()->getId() == 1){
-            $event->setCancelled(true);
-            $player->sendPopup("You just selected an item");
-        }
+	    $event->setCancelled(true);
+	    $player->sendPopup(TextFormat::AQUA ."You selected ".$event->getItem()->getName());
     }
 	
 	/*
