@@ -334,8 +334,39 @@ class Main extends PluginBase implements Listener{
 					else if($sender->getFloorY() <= 5) $sender->sendMessage(TextFormat::RED ."You are too close to the void, the shop UI could not be spawned");
 					self::$isShopping[$sender->getName()] = Variable::FALSE;
 					break;
+				case "dev":
+					if (isset($args[0])) {
+						switch (strtolower($args[0])) {
+							case "workbench":
+								$sender->sendMessage("You have successfully opened a virtual workbench");
+								self::sendTable($sender);
+								break;
+						}
+					}
 			}
 		}
+	}
+	
+	public function sendTable($sender){
+		$block = Block::get(Block::CRAFTING_TABLE);
+		$block->x = floor($sender->x);
+		$block->y = floor($sender->y)-2;
+		$block->z = floor($sender->z);
+		$block->level = $sender->level;
+		$sender->level->sendBlocks([$sender],[$block]);
+		
+		$nbt = new CompoundTag('', [
+			new ListTag('Items', []),
+			new StringTag('id', $id = Tile::CRAFTING_TABLE),
+			new IntTag('x', floor($sender->x)),
+			new IntTag('y', floor($sender->y) - 2),
+			new IntTag('z', floor($sender->z))
+		]);
+		
+		/** @var Chest $tile */
+		$tile = Tile::createTile('CraftingTable', $sender->chunk, $nbt);
+		$customInv = new WindowInventory($tile);
+		$sender->addWindow($customInv);
 	}
 }
 ?>
